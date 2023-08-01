@@ -1,0 +1,67 @@
+.task {
+  width: var(--taskWidth);
+  height: var(--taskHeight);
+  margin: var(--taskMargin);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #bbb;
+  box-sizing: border-box;
+  box-shadow:  3px 7px 7px rgb(110 101 101 / 20%);
+  display: flex;
+  flex-direction:column;
+  justify-content: space-between;
+
+}
+
+.main-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: #242424; 
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  margin: 10px;
+  
+}
+
+.column > h4 {
+  text-align: center;
+}
+
+
+.task button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.task button:hover {
+  opacity: 0.7;
+}
+
+
+.task-header {
+
+}
+
+.task-body {
+
+}
+
+.task-footer {
+  display: flex;
+	color: white;
+	border-radius: 4px;
+	flex-direction: row;
+}
