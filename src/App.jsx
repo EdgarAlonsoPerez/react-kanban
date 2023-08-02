@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
-const INITIAL_TASKS = [
+const INITIAL_TASKS = [ 
   {
     id: 1,
     name: 'Learn React',
@@ -69,24 +69,27 @@ function App() {
 
   const createTask = async () => {
    const result = await MySwal.fire({
-      title: 'Multiple inputs',
-      html:
-        '<input id="swal-task-name" class="swal2-input">' +
-        '<input id="swal-task-description" class="swal2-input">',
+      title: 'Please fill these fields',
+      html:`
+        <label> Name </label> <input id="swal-task-name" class="swal2-input">
+        <label> Description </label> <input id="swal-task-description" class="swal2-input">`,
       focusConfirm: false,
       showCancelButton: true,
-      cancelButtonText: 'cancel',
+      cancelButtonText: 'CANCEL',
       preConfirm: () => {
-        return {
+        const values = {
           name: document.getElementById('swal-task-name').value,
-          description: document.getElementById('swal-task-description').value
+            description: document.getElementById('swal-task-description').value
         }
+        if (values.name == '' || values.description == ''){
+          MySwal.showValidationMessage( `Please fill both fields `)
+        }
+        return values
       }
-    })
+   })
     if(result.isConfirmed) {
       setTasks([...tasks, { id: (tasks.length + 1), status: 1, ...result.value }])
     }
-  
   }
 
   return (
