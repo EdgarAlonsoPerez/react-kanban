@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import './App.css'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
+const MySwal = withReactContent(Swal)
 const INITIAL_TASKS = [
   {
     id: 1,
@@ -64,14 +67,39 @@ function App() {
     setTasks(newTasks)
   }
 
+  const createTask = async () => {
+   const result = await MySwal.fire({
+      title: 'Multiple inputs',
+      html:
+        '<input id="swal-task-name" class="swal2-input">' +
+        '<input id="swal-task-description" class="swal2-input">',
+      focusConfirm: false,
+      showCancelButton: true,
+      cancelButtonText: 'cancel',
+      preConfirm: () => {
+        return {
+          name: document.getElementById('swal-task-name').value,
+          description: document.getElementById('swal-task-description').value
+        }
+      }
+    })
+    if(result.isConfirmed) {
+      setTasks([...tasks, { id: (tasks.length + 1), status: 1, ...result.value }])
+    }
+  
+  }
+
   return (
     <>
       <h1> React Kanban </h1>
       <div className='main-section '>
   
       <div className='column'>
-        <h4> Pending Tasks </h4>
-
+        <div className='column-header'>
+            <h4> Pending Tasks </h4>
+            <button onClick={createTask}> New Task </button>
+        </div>
+        
         {tasks.map(t => {
          return t.status == 1 ? (
             <Task
